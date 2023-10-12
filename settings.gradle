@@ -1,0 +1,16 @@
+pluginManagement {
+    repositories {
+        maven {
+            name = "AdaptLab" //  optional target repository name
+            url "https://maven.adapt-lab.di.unimi.it/neverlang/releases"
+        }
+        maven {
+            name = "AdaptLab" //  optional target repository name
+            url "https://maven.adapt-lab.di.unimi.it/neverlang/snapshots"
+        }
+        gradlePluginPortal()
+    }
+}
+
+rootProject.name = 'neverlang-lsp-template'
+
