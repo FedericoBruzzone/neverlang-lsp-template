@@ -13,6 +13,7 @@ module testlang.all {
         Program <-- StmtList;
     }
 
+    role(useless) {  }
 
     role(type-checker) {
 
@@ -38,8 +39,10 @@ module testlang.all {
 
 endemic slice testlang.CompilationEndemicSlices {
     declare {
-        static CompilationHelper: testlang.symboltable.CompilationHelper;
-        static LSPGraph: neverlang.core.typesystem.graph.LSPGraph;
+        static CompilationHelper: testlang.symboltable.CompilationHelper; // Die after compilation
+        static LSPGraph: neverlang.core.typesystem.graph.LSPGraph; // With static dont die
+        Test2: testlang.lsp.Test2;
+        static TestStatic: testlang.lsp.TestStatic;
     }
 }
 
@@ -51,6 +54,16 @@ language testlang.TestLang {
     endemic slices
         testlang.CompilationEndemicSlices
 
-    roles syntax <+ type-checker
+    // How to remove `<+ type-checker` from here without introducing `useless` role?
+    roles syntax < useless <+ type-checker
 }
 
+language testlang.TestLangLSP {
+    slices
+        bundle (testlang.TestLang)
+
+    endemic slices
+        testlang.CompilationEndemicSlices
+
+    roles syntax <+ type-checker
+}

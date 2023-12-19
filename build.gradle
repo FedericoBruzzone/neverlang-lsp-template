@@ -1,4 +1,5 @@
 plugins {
+    id 'idea'
     id 'java'
     id 'eclipse'
     id "neverlang" version "0.9-SNAPSHOT"
@@ -38,8 +39,10 @@ repositories {
 
 dependencies {
     compileOnly 'com.intellij:annotations:12.0'
+    typesystemCompileOnly 'com.intellij:annotations:12.0'
     implementation "it.unimi.di.adaptlab:neverlang-core:${neverlangVersion}"
     implementation "it.unimi.di.adaptlab:neverlang-dexter:${neverlangVersion}"
+    implementation "it.unimi.di.adaptlab:neverlang-cli:${neverlangVersion}"
     implementation "it.unimi.di.adaptlab:neverlang-typesystem:1.0-SNAPSHOT"
     implementation "it.unimi.di.adaptlab:neverlang-lsp-core:1.0-SNAPSHOT"
     implementation sourceSets.named("typesystem").get().output
@@ -49,6 +52,7 @@ dependencies {
     typesystemCompileOnly "it.unimi.di.adaptlab:neverlang-dexter:${neverlangVersion}"
     testImplementation platform('org.junit:junit-bom:5.9.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation "it.unimi.di.adaptlab:neverlang-junit-extension:${neverlangVersion}"
 }
 
 test {
@@ -56,6 +60,6 @@ test {
 }
 
 task runTestLang(type: neverlang.execClass){
-    classpath = sourceSets.main.runtimeClasspath + sourceSets.getByName("nlg").runtimeClasspath
+    classpath = sourceSets.main.runtimeClasspath + sourceSets.getByName("nlg").runtimeClasspath // + sourceSets.getByName("typesystem").runtimeClasspath
     languageMainClass = "testlang.TestLang"
 }

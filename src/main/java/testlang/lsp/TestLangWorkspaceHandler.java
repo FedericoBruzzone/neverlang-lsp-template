@@ -28,7 +28,7 @@ public class TestLangWorkspaceHandler extends WorkspaceHandler {
     @Override
     public Compiler buildCompiler() {
         return new Compiler(
-                new TestLang(new TestLangModule()),
+                new TestLang(new TestLangModule()), // TODO
                 CompilationHelper.class
         );
     }
